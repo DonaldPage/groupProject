@@ -2,6 +2,9 @@
 include('admin/includes/header.php');
 include('admin/init.php');
 session_start();
+
+if (!isset($_SESSION['id'])) { redirect("admin/login.php");} 
+
  ?>
 <!-- NAVBAR
 ================================================== -->

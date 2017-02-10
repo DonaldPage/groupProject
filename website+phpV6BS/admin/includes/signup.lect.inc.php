@@ -3,14 +3,14 @@ session_start();
 include '../dbh.php';
 // TAKES THE TEXT FROM THE INPUT FIELDS AND
 // STORES THEM IN A VARIABLE
-$first = $_POST['first'];
-$last = $_POST['last'];
-$uid = $_POST['uid'];
+$first = $_POST['firstname'];
+$last = $_POST['lastname'];
+$uid = $_POST['username'];
 $email = $_POST['email'];
-$pwd = $_POST['pwd'];
-$cnfPwd = $_POST['cnfPwd'];
+$pwd = $_POST['password'];
+$cnfPwd = $_POST['confPassword'];
 $subject = $_POST['subject'];
-$secSubject = $_POST['2ndsubject'];
+$secSubject = $_POST['secSubject'];
 
 // ERROR HANDLING, CHECKING IF ALL FIELDS HAVE TEXT IN THEM
 if (empty($first)){
@@ -33,13 +33,21 @@ if (empty($pwd)){
 if ($pwd != $cnfPwd){
         header ("Location: ../signup.php?error=error");
 	exit();
+}
+if (empty($subject)){
+	header ("Location: ../signup.php?error=empty");
+	exit();
+}
+if (empty($secSubject)){
+	header ("Location: ../signup.php?error=empty");
+	exit();
 } else {
         $sql = "SELECT fld_UserID FROM users WHERE fld_UserID='$uid'";
 		$result = mysqli_query($conn, $sql); 
 		$uidcheck = mysqli_num_rows($result);
 	
 		if($uidcheck > 0){
-			header ("Location: ../lecturer.php?error=username");
+			header ("Location: ../signup.php?error=username");
 			exit();	
 				} else {
 					// HASHING THE PASSWORD BEFORE IT'S INSERTED
@@ -50,7 +58,7 @@ if ($pwd != $cnfPwd){
 						// EXECUTE THE INSERTION
 						$result = mysqli_query($conn, $sql);
 						//RETURN THE USER TO THE FRONT PAGE
-						header ("Location: ../GPindex.php?success");
+						header ("Location: ../login.php?success");
         }
 }     
 ?>
