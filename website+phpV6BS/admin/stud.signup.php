@@ -11,8 +11,6 @@ if (isset($_POST['submit'])) {
 	$email = trim($_POST['email']);
 	$password = trim($_POST['password']);
 	$confPassword = trim($_POST['confPassword']);
-	$subject = trim($_POST['subject']);
-	$secSubject = trim($_POST['secSubject']);
 
 }
 
@@ -58,13 +56,13 @@ if (isset($_POST['submit'])) {
 </div>
 
 <div class="form-group">
-	<label for="subject">Enter Your Subject</label>
+	<label for="confPassword">Enter Your Subject</label>
 	<input type="text" class="form-control" name="subject">
 </div>
 
 <div class="form-group">
-	<label for="lastname">Enter Your 2nd Subject</label>
-	<input type="text" class="form-control" name="secSubject">
+	<label for="confPassword">Enter Your 2nd Subject</label>
+	<input type="text" class="form-control" name="2ndsubject">
 </div>
 
 <div class="form-group">

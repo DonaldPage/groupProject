@@ -80,7 +80,7 @@ if(!$course ) {
 else/*if("lecturers.fld_Subject" == $course)*/ {
 	//mysql_select_db($conn,'groupproject');
 
-$sql = "SELECT users.fld_UserID,users.fld_Surname, users.fld_Forename, users.fld_Subject, users.fld_2ndSubject,course.fld_CourseID, course.fld_Course
+$sql = "SELECT users.fld_UserID,users.fld_Surname, users.fld_Forename, users.fld_Subject, users.fld_2ndSubject, course.fld_CourseID, course.fld_Course
         FROM users, course
         WHERE ((course.fld_Course = users.fld_Subject) AND (course.fld_CourseID = '$course')) OR ((course.fld_Course = users.fld_2ndSubject) AND (course.fld_CourseID = '$course'))";
 
@@ -102,6 +102,27 @@ while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 	} 
 
 }
+
+$test = "SELECT users.fld_UserID, users.fld_Subject, answers.fld_UserID, answers.fld_Score, users.fld_Surname, users.fld_Subject, course.fld_CourseID
+          FROM users, answers, course
+          WHERE ((users.fld_UserID = answers.fld_UserID) AND (course.fld_CourseID = '$course'))";
+
+$secresult = mysqli_query($conn, $test);
+
+if(!$secresult)
+{
+
+
+  die( mysql_error());
+}
+
+while($row = mysqli_fetch_array($secresult, MYSQL_ASSOC)){
+  echo "Student Name: {$row['fld_Surname']} <br>".
+        "Result: {$row['fld_Score']} <br>";
+      
+}
+
+
 ?>
 
 <?php
@@ -114,7 +135,7 @@ mysqli_close($conn);
             <!-- /.container-fluid -->
 
         </div>
-        <!-- /#page-wrapper -->
+         </page-wrapper>
 
   <?php include("includes/footer.php"); ?>
 

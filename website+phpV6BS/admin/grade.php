@@ -103,9 +103,9 @@ if (!isset($_SESSION['id'])) { redirect("login.php");}
     $row = mysqli_fetch_assoc($result);
 
     //Creates a variable to hold the amount of attemps the user has recorded within the answers table.
-    $testCount  = $row['fld_Test_Taken'];
+    //$testCount  = $row['fld_Test_Taken'];
     //Holds the results of the query within a variable.
-    $entryCheck = mysqli_num_rows($result);
+    //$entryCheck = mysqli_num_rows($result);
     
     //If the total score is less than 4, then display a message of bad luck.
     if($totalCorrect < 4){
@@ -123,8 +123,13 @@ if (!isset($_SESSION['id'])) { redirect("login.php");}
               //Displays the total score (held within a variable) out of the total number of questions.
               echo "<br>
                     <p style='font-size:40px; text-align:center; margin-top:30px;' id='results'>You scored: $totalCorrect / 5 correct</p>";
-            //Within the parent if statement, check if the user has a row of results.
-            if ($entryCheck > 0){
+
+              $ins = "INSERT INTO answers (fld_QuizID, fld_CourseID, fld_UserID, fld_Score) VALUES 
+              ('1', '1', '$userID','$totalCorrect')";
+
+              $end = mysqli_query($conn, $ins);
+            //Within the paren if statement, check if the user has a row of results.
+            /*if ($entryCheck > 0){
                 //Uses the value of $testCount to decide what happens in each case.
                 switch ($testCount) {
                     case 1:
@@ -349,9 +354,9 @@ if (!isset($_SESSION['id'])) { redirect("login.php");}
                       <br>
                       <br>
                     <?php 
-            }//close of switch
+            }//close of switch*/
 
-        }//Close of: if ($entryCheck > 0)
+        //}//Close of: if ($entryCheck > 0)
         
     }//Close of else
 ?>
