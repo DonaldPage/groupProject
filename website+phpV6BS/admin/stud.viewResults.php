@@ -89,7 +89,7 @@ li{
     }
 
     //Searching the answers table to see if the user already has any scores for this test.
-    $sql = "SELECT fld_ResultOne, fld_ResultTwo, fld_ResultThree, fld_ResultFour, fld_ResultFive FROM answers
+    $sql = "SELECT fld_Score, fld_UserID FROM answers
             WHERE fld_UserID='$userID'";
 
     //Executes the query.
@@ -97,24 +97,20 @@ li{
     
     $row = mysqli_fetch_assoc($result);
 
-    $score1 = $row['fld_ResultOne'];
-    $score2 = $row['fld_ResultTwo'];
-    $score3 = $row['fld_ResultThree'];
-    $score4 = $row['fld_ResultFour'];
-    $score5 = $row['fld_ResultFive'];
+   
 
     $entryCheck = mysqli_num_rows($result);
 
     if ($entryCheck > 0) {
+
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
     echo "<div id='collectionsDiv'>
-            <h1 class='page-header col-md-offset-2'>
-                            {$_SESSION['id']} these are the results you have on record
-                        </h1>
+           
           <br>
           <br>
           <br>
           <div class='results'>
-          <h1>Your First Result</h1>
+          <h1>Your Result</h1>
           <br>
               <p style='font-size:30px; text-align:center;'>Better luck next time!</p>'
               
@@ -122,76 +118,18 @@ li{
               
           <br>
               <p style='font-size:40px; text-align:center; margin-top:30px;' 
-               id='results'>You scored: $score1 / 5 correct</p>
+               id='results'>You scored: {$row['fld_Score']} / 5 correct</p>
 
         </div>
-    <hr style='margin-top: 50px'>
-
-        <br>
-        <br>
-        <div class='results'>
-        <h1>Your Second Result</h1>
-        <br>
-              <p style='font-size:30px; text-align:center;'>Better luck next time!</p>'
-              
-              <hr style ='margin-top: 10px'>
-              
-                    <br>
-                    <p style='font-size:40px; text-align:center; margin-top:30px;' id='results'>You scored: $score2 / 5 correct</p>
-
-        </div>
-    <hr style='margin-top: 50px'>
-
-        <br>
-        <br>
-        <div class='results'>
-        <h1>Your Third Result</h1>
-        <br>
-              <p style='font-size:30px; text-align:center;'>Better luck next time!</p>'
-              
-              <hr style ='margin-top: 10px'>
-              
-                    <br>
-                    <p style='font-size:40px; text-align:center; margin-top:30px;' id='results'>You scored: $score3 / 5 correct</p>
-
-        </div>
-    <hr style='margin-top: 50px'>
-
-        <br>
-        <br>
-        <div class='results'>
-        <h1>Your Fourth Result</h1>
-        <br>
-              <p style='font-size:30px; text-align:center;'>Better luck next time!</p>'
-              
-              <hr style ='margin-top: 10px'>
-              
-                    <br>
-                    <p style='font-size:40px; text-align:center; margin-top:30px;' id='results'>You scored: $score4 / 5 correct</p>
-
-        </div>
-    <hr style='margin-top: 50px'>
-
-        <br>
-        <br>
-        <div class='results'>
-        <h1>Your Fith Result</h1>
-        <br>
-              <p style='font-size:30px; text-align:center;'>Better luck next time!</p>'
-              
-              <hr style ='margin-top: 10px'>
-              
-                    <br>
-                    <p style='font-size:40px; text-align:center; margin-top:30px;' id='results'>You scored: $score5 / 5 correct</p>
-
-        </div>
+   
         <br>
         <br>";
     } else {
 
-        echo "<p style='font-size:30px; text-align:center;'>You do not have any test        results, please take a test in one of your subjects.</p>'";
+        echo "<p style='font-size:30px; text-align:center;'>You do not have any test results, please take a test in one of your subjects.</p>'";
     
-    }
+    };
+
 
 mysqli_free_result($result);
 ?>
